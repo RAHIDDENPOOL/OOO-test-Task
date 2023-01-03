@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
             painter = painterResource(id = R.drawable.content),
             contentDescription = stringResource(id = R.string.dog_content_description)
         )
-        // Floating Action Menu 
+        // Floating Action Men
         FloatingActionButtonLayout(
             isOpen = isOpen,
             onToggle = { isOpen = !isOpen },
