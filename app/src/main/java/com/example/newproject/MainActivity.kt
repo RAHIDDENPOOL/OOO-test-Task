@@ -82,7 +82,7 @@ class MainActivity : ComponentActivity() {
     ) {
         val transition = updateTransition(targetState = isOpen, label = "")
 
-        //анимация поворота плавающей кнопки
+        //анимация поворота плавающей кнопк
         val rotation =
             transitionAnimation(transition = transition, valueForTrue = 45f, valueForFalse = 0f)
 
