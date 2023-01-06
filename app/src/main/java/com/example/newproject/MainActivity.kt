@@ -1,7 +1,6 @@
 package com.example.newproject
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.core.Transition
@@ -17,9 +16,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.ButtonDefaults.buttonColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.ripple.rememberRipple
@@ -158,20 +155,7 @@ class MainActivity : ComponentActivity() {
         onClose: (state: Boolean, selectedMenu: String) -> Unit
     ) {
         // Column Scope
-        Button(
-            modifier = Modifier.scale(actionMenuScale),
-            onClick = {
-                Toast.makeText(this@MainActivity, "привет я тост", Toast.LENGTH_SHORT).show()
-                onClose(isOpen, "привет я тост")
-            },
-            shape = RoundedCornerShape(50),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Magenta,
-                contentColor = Color.Yellow
-            )
-        ) {
-            Text(text = "привет я тост")
-        }
+        {}
         Spacer(modifier = Modifier.padding(vertical = 10.dp))
 
         Surface(
@@ -195,54 +179,136 @@ class MainActivity : ComponentActivity() {
                         interactionSource = MutableInteractionSource(),
                         indication = rememberRipple(bounded = true, color = Color.DarkGray),
                         onClick = {
-                            Toast
-                                .makeText(
-                                    this@MainActivity, "Zdarova", Toast.LENGTH_SHORT
-                                )
-                                .show()
-                            onClose(
-                                isOpen, "Zdarova"
-                            )
+                        }
+                    )
+            )
+
+        }
+        Spacer(modifier = Modifier.padding(vertical = 10.dp))
+        Surface(
+            shape = CircleShape, modifier = Modifier
+                .wrapContentSize()
+                .scale(actionMenuScale)
+        ) {
+
+            Image(
+                painter = painterResource(
+                    id = R.drawable.ic_baseline_camera_24
+                ),
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(46.dp)
+                    .clip(CircleShape)
+                    .clickable(
+                        // custom ripple
+                        interactionSource = MutableInteractionSource(),
+                        indication = rememberRipple(bounded = true, color = Color.DarkGray),
+                        onClick = {
                         }
                     )
             )
         }
-    }
-
-    // Удаление Свайпом
-    /* @Composable
-     fun SwipeToDismiss(
-         state: DismissState,
-         modifier: Modifier = Modifier,
-         directions: Set<DismissDirection> = setOf(DismissDirection.EndToStart,
-             DismissDirection.StartToEnd
-         ),
-         dismissThresholds: (DismissDirection) -> ThresholdConfig = { FractionalThreshold(0.5f) },
-         background: @Composable RowScope.() -> Unit,
-         dismissContent: @Composable RowScope. () -> Unit
-     ) */
-
-    @Composable
-    private fun transitionAnimation(
-        transition: Transition<Boolean>,
-        valueForTrue: Float,
-        valueForFalse: Float
-    ): Float {
-        val animationValue: Float by transition.animateFloat(
-            label = "",
-            transitionSpec = {
-                tween(durationMillis = 350)
-            }
+        Spacer(modifier = Modifier.padding(vertical = 10.dp))
+        Surface(
+            shape = CircleShape, modifier = Modifier
+                .wrapContentSize()
+                .scale(actionMenuScale)
         ) {
-            if (it) {
-                valueForTrue
-            } else {
-                valueForFalse
-            }
+
+            Image(
+                painter = painterResource(
+                    id = R.drawable.ic_baseline_coronavirus_24
+                ),
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(46.dp)
+                    .clip(CircleShape)
+                    .clickable(
+                        // custom ripple
+                        interactionSource = MutableInteractionSource(),
+                        indication = rememberRipple(bounded = true, color = Color.DarkGray),
+                        onClick = {
+                        }
+                    )
+            )
         }
-        return animationValue
+        Spacer(modifier = Modifier.padding(vertical = 10.dp))
+        Surface(
+            shape = CircleShape, modifier = Modifier
+                .wrapContentSize()
+                .scale(actionMenuScale)
+        ) {
+
+            Image(
+                painter = painterResource(
+                    id = R.drawable.ic_baseline_extension_24
+                ),
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(46.dp)
+                    .clip(CircleShape)
+                    .clickable(
+                        // custom ripple
+                        interactionSource = MutableInteractionSource(),
+                        indication = rememberRipple(bounded = true, color = Color.DarkGray),
+                        onClick = {
+                        }
+                    )
+            )
+        }
+        Spacer(modifier = Modifier.padding(vertical = 10.dp))
+        Surface(
+            shape = CircleShape, modifier = Modifier
+                .wrapContentSize()
+                .scale(actionMenuScale)
+        ) {
+
+            Image(
+                painter = painterResource(
+                    id = R.drawable.ic_baseline_fingerprint_24
+                ),
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(46.dp)
+                    .clip(CircleShape)
+                    .clickable(
+                        // custom ripple
+                        interactionSource = MutableInteractionSource(),
+                        indication = rememberRipple(bounded = true, color = Color.DarkGray),
+                        onClick = {
+                        }
+                    )
+            )
+        }
+
     }
 }
+
+@Composable
+private fun transitionAnimation(
+    transition: Transition<Boolean>,
+    valueForTrue: Float,
+    valueForFalse: Float
+): Float {
+    val animationValue: Float by transition.animateFloat(
+        label = "",
+        transitionSpec = {
+            tween(durationMillis = 350)
+        }
+    ) {
+        if (it) {
+            valueForTrue
+        } else {
+            valueForFalse
+        }
+    }
+    return animationValue
+}
+
 
 
 
