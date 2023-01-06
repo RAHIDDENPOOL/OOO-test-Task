@@ -15,9 +15,17 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Surface
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,6 +38,7 @@ class MainActivity : ComponentActivity() {
             ContentView()
         }
     }
+
     @Preview
     @Composable
     private fun ContentView() {
@@ -48,16 +57,29 @@ class MainActivity : ComponentActivity() {
             painter = painterResource(id = R.drawable.content),
             contentDescription = stringResource(id = R.string.dog_content_description)
         )
+        // Floating Action Men
+        FloatingActionButtonLayout(
+            isOpen = isOpen,
+            onToggle = { isOpen = !isOpen },
+            onClose = { state, selectMenu ->
+                if (state) {
+                    isOpen = !state
+                }
+                if (selectMenu != "") {
+                    content = selectMenu
+                }
+            })
     }
 
     @Composable
     private fun FloatingActionButtonLayout(
         isOpen: Boolean,
+        onToggle: () -> Unit,
         onClose: (state: Boolean, selectMenu: String) -> Unit
     ) {
         val transition = updateTransition(targetState = isOpen, label = "")
 
-        //анимация поворота плавающей кнопки
+        //анимация поворота плавающей кнопк
         val rotation =
             transitionAnimation(transition = transition, valueForTrue = 45f, valueForFalse = 0f)
 
@@ -95,33 +117,198 @@ class MainActivity : ComponentActivity() {
                         .padding(bottom = 30.dp, end = 20.dp)
                         .wrapContentSize()
                 ) {
-                    //TODO
+                    if (isOpen) {
+                        // Отображение меню при клике
+                        FloatingActionMenus(
+                            isOpen = isOpen,
+                            actionMenuScale = actionMenuScale,
+                            onClose = onClose
+                        )
+                        Spacer(modifier = Modifier.padding(vertical = 20.dp))
+                    }
+                    FloatingActionButton(
+                        onClick = {
+                            //Отображение или скрытие Меню
+                            onToggle()
+                        },
+                        shape = CircleShape,
+                        backgroundColor = Color.White,
+                        contentColor = Color.DarkGray,
+                        elevation = FloatingActionButtonDefaults.elevation(),
+                        content = {
+                            Icon(
+                                Icons.Filled.Add, contentDescription = null,
+                                modifier = Modifier.rotate(rotation)
+                            )
+                        }
+                    )
+                    Spacer(modifier = Modifier.padding(vertical = 10.dp))
                 }
             }
         }
     }
 
     @Composable
-    private fun transitionAnimation(
-        transition: Transition<Boolean>,
-        valueForTrue: Float,
-        valueForFalse: Float
-    ): Float {
-        val animationValue: Float by transition.animateFloat(
-            label = "",
-            transitionSpec = {
-                tween(durationMillis = 350)
-            }
+    private fun FloatingActionMenus(
+        isOpen: Boolean,
+        actionMenuScale: Float,
+        onClose: (state: Boolean, selectedMenu: String) -> Unit
+    ) {
+        // Column Scope
+        {}
+        Spacer(modifier = Modifier.padding(vertical = 10.dp))
+
+        Surface(
+            shape = CircleShape,
+            elevation = 6.dp,
+            modifier = Modifier
+                .wrapContentSize()
+                .scale(actionMenuScale)
         ) {
-            if (it) {
-                valueForTrue
-            } else {
-                valueForFalse
-            }
+            Image(
+                painter = painterResource(
+                    id = R.drawable.ic_baseline_bug_report_24
+                ),
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(46.dp)
+                    .clip(CircleShape)
+                    .clickable(
+                        // custom ripple
+                        interactionSource = MutableInteractionSource(),
+                        indication = rememberRipple(bounded = true, color = Color.DarkGray),
+                        onClick = {
+                        }
+                    )
+            )
+
         }
-        return animationValue
+        Spacer(modifier = Modifier.padding(vertical = 10.dp))
+        Surface(
+            shape = CircleShape, modifier = Modifier
+                .wrapContentSize()
+                .scale(actionMenuScale)
+        ) {
+
+            Image(
+                painter = painterResource(
+                    id = R.drawable.ic_baseline_camera_24
+                ),
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(46.dp)
+                    .clip(CircleShape)
+                    .clickable(
+                        // custom ripple
+                        interactionSource = MutableInteractionSource(),
+                        indication = rememberRipple(bounded = true, color = Color.DarkGray),
+                        onClick = {
+                        }
+                    )
+            )
+        }
+        Spacer(modifier = Modifier.padding(vertical = 10.dp))
+        Surface(
+            shape = CircleShape, modifier = Modifier
+                .wrapContentSize()
+                .scale(actionMenuScale)
+        ) {
+
+            Image(
+                painter = painterResource(
+                    id = R.drawable.ic_baseline_coronavirus_24
+                ),
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(46.dp)
+                    .clip(CircleShape)
+                    .clickable(
+                        // custom ripple
+                        interactionSource = MutableInteractionSource(),
+                        indication = rememberRipple(bounded = true, color = Color.DarkGray),
+                        onClick = {
+                        }
+                    )
+            )
+        }
+        Spacer(modifier = Modifier.padding(vertical = 10.dp))
+        Surface(
+            shape = CircleShape, modifier = Modifier
+                .wrapContentSize()
+                .scale(actionMenuScale)
+        ) {
+
+            Image(
+                painter = painterResource(
+                    id = R.drawable.ic_baseline_extension_24
+                ),
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(46.dp)
+                    .clip(CircleShape)
+                    .clickable(
+                        // custom ripple
+                        interactionSource = MutableInteractionSource(),
+                        indication = rememberRipple(bounded = true, color = Color.DarkGray),
+                        onClick = {
+                        }
+                    )
+            )
+        }
+        Spacer(modifier = Modifier.padding(vertical = 10.dp))
+        Surface(
+            shape = CircleShape, modifier = Modifier
+                .wrapContentSize()
+                .scale(actionMenuScale)
+        ) {
+
+            Image(
+                painter = painterResource(
+                    id = R.drawable.ic_baseline_fingerprint_24
+                ),
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(46.dp)
+                    .clip(CircleShape)
+                    .clickable(
+                        // custom ripple
+                        interactionSource = MutableInteractionSource(),
+                        indication = rememberRipple(bounded = true, color = Color.DarkGray),
+                        onClick = {
+                        }
+                    )
+            )
+        }
+
     }
 }
+
+@Composable
+private fun transitionAnimation(
+    transition: Transition<Boolean>,
+    valueForTrue: Float,
+    valueForFalse: Float
+): Float {
+    val animationValue: Float by transition.animateFloat(
+        label = "",
+        transitionSpec = {
+            tween(durationMillis = 350)
+        }
+    ) {
+        if (it) {
+            valueForTrue
+        } else {
+            valueForFalse
+        }
+    }
+    return animationValue
+}
+
 
 
 
