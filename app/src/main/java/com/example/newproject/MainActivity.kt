@@ -120,7 +120,7 @@ class MainActivity : ComponentActivity() {
                     if (isOpen) {
                         // Отображение меню при клике
                         FloatingActionMenus(
-                            isOpen = isOpen,
+                            isOpen = !isOpen,
                             actionMenuScale = actionMenuScale,
                             onClose = onClose
                         )
@@ -155,7 +155,6 @@ class MainActivity : ComponentActivity() {
         onClose: (state: Boolean, selectedMenu: String) -> Unit
     ) {
         // Column Scope
-        {}
         Spacer(modifier = Modifier.padding(vertical = 10.dp))
 
         Surface(
